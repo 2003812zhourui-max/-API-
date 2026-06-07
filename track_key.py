@@ -17,8 +17,12 @@ _TRACK_SIGN_JS_CACHE: str | None = None
 
 
 def compact_json_text(value: Any) -> str:
-    """Serialize JSON exactly like the frontend request body."""
-    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    """Serialize JSON exactly like the frontend request body.
+
+    NOTE: ensure_ascii=True is REQUIRED. The browser's Track-Key signer
+    hashes the \\uXXXX escaped form, not raw UTF-8 bytes.
+    """
+    return json.dumps(value, ensure_ascii=True, separators=(",", ":"))
 
 
 def absolute_api_url(url: str, api_origin: str = API_ORIGIN) -> str:

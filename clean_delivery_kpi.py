@@ -42,7 +42,8 @@ SUMMARY_HEADERS = [
 
 
 def compact_json_text(value: Any) -> str:
-    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    # ensure_ascii=True required to match browser Track-Key signing
+    return json.dumps(value, ensure_ascii=True, separators=(",", ":"))
 
 
 def parse_kpi_date(value: str) -> date:
