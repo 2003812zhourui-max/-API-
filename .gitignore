@@ -1,5 +1,31 @@
 __pycache__/
 *.py[cod]
-*.xlsx
-~$*
+.venv/
+venv/
+env/
 
+# Login credentials / browser states
+*storage_state*.json
+*.har
+*.log
+
+# Business data
+*.xlsx
+*.xls
+*.csv
+*.pdf
+
+# Runtime
+data/*.db
+output/
+logs/
+
+# Secrets
+.env
+.env.local
+feishu_config.json
+
+# Windows
+~$*
+Thumbs.db
+Desktop.ini

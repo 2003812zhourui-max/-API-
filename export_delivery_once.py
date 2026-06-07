@@ -10,10 +10,8 @@ from typing import Any
 import requests
 
 
-HELPER_DIR = Path(r"C:\Users\Administrator\Desktop\Track-Key-Helper")
+PROJECT_DIR = Path(__file__).resolve().parent
 API_ORIGIN = "https://omp.xlwms.com"
-
-sys.path.insert(0, str(HELPER_DIR))
 
 from track_key import compact_json_text, track_key_for_text  # noqa: E402
 from silent_auth import create_session_from_storage_state, load_storage_state, local_storage_from_state  # noqa: E402
