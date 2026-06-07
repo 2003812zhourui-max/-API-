@@ -10,7 +10,7 @@ import requests
 
 
 API_ORIGIN = "https://omp.xlwms.com"
-TARGET_PAGE = "https://omp.xlwms.com/wms/outbound/parcel"
+TARGET_PAGE = "https://omp.xlwms.com/globalOrder/parcel"
 DEFAULT_MARKER = 'function g(e){const t=0,n="",i=8;'
 
 _TRACK_SIGN_JS_CACHE: str | None = None
