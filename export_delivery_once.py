@@ -197,16 +197,25 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Create and download one OMP delivery export.")
     parser.add_argument("--start-time", default="2026-06-01 00:00:00")
     parser.add_argument("--end-time", default="2026-06-02 23:59:59")
-    parser.add_argument("--wh-code", default="")
-    parser.add_argument("--status", default="")
+    parser.add_argument("--wh-code", default="", help="Warehouse code, auto-detected from storage_state if empty")
+    parser.add_argument("--status", default="100", help="Order status filter (100=all non-draft)")
     parser.add_argument("--output", default="")
     parser.add_argument("--storage-state", default="")
     parser.add_argument("--attempts", type=int, default=20)
     parser.add_argument("--interval", type=int, default=10)
     args = parser.parse_args()
 
+    # Auto-detect wh_code from storage_state
+    wh_code = args.wh_code
+    if not wh_code and args.storage_state:
+        from silent_auth import load_storage_state, local_storage_from_state
+        import json as _json
+        local = local_storage_from_state(load_storage_state(args.storage_state))
+        wh_info = _json.loads(local.get("wh", "{}"))
+        wh_code = wh_info.get("whCode", "US02")
+
     session = session_from_args(args)
-    task_id = create_export_task(session, build_payload(args.start_time, args.end_time, args.wh_code, args.status))
+    task_id = create_export_task(session, build_payload(args.start_time, args.end_time, wh_code, args.status))
     print(f"created task: {task_id}", flush=True)
 
     output_path = Path(args.output or f"delivery_export_{task_id}.xlsx").resolve()
