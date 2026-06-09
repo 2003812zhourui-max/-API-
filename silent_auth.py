@@ -84,7 +84,7 @@ def create_session_from_storage_state(
 
     local_storage = local_storage_from_state(state, origin=origin)
     wh_info = parse_json_text(local_storage.get("wh", ""))
-    token = local_storage.get("wms-token") or local_storage.get("omp-token") or ""
+    token = local_storage.get("omp-token") or local_storage.get("wms-token") or ""
     auth_values = auth_header_candidates(token, auth_scheme=auth_scheme)
 
     resolved_wh_code = wh_code or str(wh_info.get("whCode") or "")

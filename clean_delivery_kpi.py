@@ -300,7 +300,7 @@ def fetch_pick_name_from_order(session: requests.Session, record: dict[str, Any]
     events = result.get("data") or []
     for event in events:
         if event.get("bizType") == "delivery_pick" or event.get("bizDesc") == "\u62e3\u8d27":
-            return str(event.get("operateName") or event.get("operateAccount") or "").strip()
+            return str(event.get("operateAccount") or event.get("operateName") or "").strip()
     return ""
 
 
